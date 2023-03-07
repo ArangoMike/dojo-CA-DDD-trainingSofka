@@ -1,0 +1,14 @@
+##Spring Configuration
+server:
+  port: 8080
+spring:
+  application:
+    name: dojo-CA-DDD-trainingSofka
+  devtools:
+    add-properties: false
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  profiles:
+    include:

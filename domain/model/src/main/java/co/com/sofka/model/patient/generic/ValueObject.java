@@ -1,0 +1,7 @@
+package co.com.sofka.model.patient.generic;
+
+import java.io.Serializable;
+
+public interface ValueObject<T> extends Serializable {
+    T value();
+}
