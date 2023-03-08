@@ -1,9 +1,9 @@
-package co.com.sofka.model.patient.generic;
+package co.com.sofka.model.generic;
 
 import java.util.Objects;
 import java.util.UUID;
 
-public class Identity implements ValueObject<String>{
+public class Identity implements ValueObject<String> {
     private final String uuid;
     public Identity(){
         this.uuid = UUID.randomUUID().toString();

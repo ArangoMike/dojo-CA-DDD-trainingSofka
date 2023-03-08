@@ -1,4 +1,4 @@
-package co.com.sofka.model.patient.generic;
+package co.com.sofka.model.generic;
 
 import java.util.List;
 

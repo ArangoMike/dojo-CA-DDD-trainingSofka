@@ -1,4 +1,4 @@
-package co.com.sofka.model.patient.generic;
+package co.com.sofka.model.generic;
 
 
 public abstract class Entity<I extends Identity> {
