@@ -16,16 +16,17 @@ import java.util.Objects;
 public class Patient extends AggregateRoot<PatientId> {
 
     protected FullName fullName;
+    protected TypeId typeId;
     protected Enable enable;
 
     protected List<Appointment> appointments;
 
 
     public Patient(PatientId entityId,
-                   FullName fullName) {
+                   FullName fullName,TypeId typeId) {
         super(entityId);
         subscribe(new PatientChange(this));
-    appendChange(new PatientCreated(fullName.value())).apply();
+    appendChange(new PatientCreated(fullName.value(),typeId.value())).apply();
     }
 
     private Patient(PatientId id){

@@ -12,11 +12,11 @@ import java.util.ArrayList;
 
 public class PatientChange extends EventChange {
 
-
     public PatientChange(Patient patient){
 
         apply((PatientCreated event)-> {
             patient.fullName = new FullName(event.getFullName());
+            patient.typeId = new TypeId(event.getTypeId());
             patient.enable = new Enable(true);
             patient.appointments = new ArrayList<>();
                     });

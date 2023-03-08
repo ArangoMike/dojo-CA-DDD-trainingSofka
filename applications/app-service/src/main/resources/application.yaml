@@ -1,14 +1,26 @@
-##Spring Configuration
 server:
   port: 8080
 spring:
   application:
-    name: dojo-CA-DDD-trainingSofka
+    name: "dojo-CA-DDD-trainingSofka"
   devtools:
     add-properties: false
   h2:
     console:
       enabled: true
-      path: /h2
+      path: "/h2"
   profiles:
-    include:
+    include: null
+  data:
+      mongodb:
+        uri: "mongodb+srv://mikearango123:m123456@clusterbd.hstuodc.mongodb.net/?retryWrites=true&w=majority"
+        database: angularsofka
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,prometheus"
+  endpoint:
+    health:
+      probes:
+        enabled: true
