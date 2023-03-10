@@ -1,10 +1,6 @@
 package co.com.sofka.model.patient.events;
 
 import co.com.sofka.model.generic.DomainEvent;
-import co.com.sofka.model.patient.values.AppointmentId;
-import co.com.sofka.model.patient.values.PatientId;
-
-import java.util.Date;
 
 public class AppointmentAssociated extends DomainEvent {
 
@@ -12,7 +8,7 @@ public class AppointmentAssociated extends DomainEvent {
     private  String appointmentDate;
 
     public AppointmentAssociated(){
-        super("ramirez.fernandez.AppointmentAssociated");
+        super("ramirez.fernandez.appointmentassociated");
     }
 
 
@@ -29,5 +25,7 @@ public class AppointmentAssociated extends DomainEvent {
     public String getAppointmentDate() {
         return appointmentDate;
     }
+
+
 
 }

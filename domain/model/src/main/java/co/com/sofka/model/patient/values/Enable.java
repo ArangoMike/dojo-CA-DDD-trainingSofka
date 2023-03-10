@@ -2,16 +2,16 @@ package co.com.sofka.model.patient.values;
 
 import co.com.sofka.model.generic.ValueObject;
 
-public class Enable implements ValueObject<Boolean> {
+public class Enable implements ValueObject<String> {
 
-    private Boolean enable;
+    private String enable;
 
-    public Enable(Boolean enable) {
+    public Enable(String enable) {
         this.enable = enable;
     }
 
     @Override
-    public Boolean value() {
+    public String value() {
         return enable;
     }
 }

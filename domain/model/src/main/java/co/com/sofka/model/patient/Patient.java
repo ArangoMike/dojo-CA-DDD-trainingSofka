@@ -5,7 +5,7 @@ import co.com.sofka.model.generic.AggregateRoot;
 import co.com.sofka.model.generic.DomainEvent;
 import co.com.sofka.model.patient.entities.Appointment;
 import co.com.sofka.model.patient.events.AppointmentAssociated;
-import co.com.sofka.model.patient.events.EnableModified;
+import co.com.sofka.model.patient.events.EnablePatientModified;
 import co.com.sofka.model.patient.events.PatientCreated;
 import co.com.sofka.model.patient.events.MedicalHistoryofAppointmentAdded;
 import co.com.sofka.model.patient.values.*;
@@ -16,6 +16,7 @@ import java.util.Objects;
 public class Patient extends AggregateRoot<PatientId> {
 
     protected FullName fullName;
+    protected Email email;
     protected TypeId typeId;
     protected Enable enable;
 
@@ -23,7 +24,7 @@ public class Patient extends AggregateRoot<PatientId> {
 
 
     public Patient(PatientId entityId,
-                   FullName fullName,TypeId typeId) {
+                   FullName fullName,TypeId typeId,Enable enable) {
         super(entityId);
         subscribe(new PatientChange(this));
     appendChange(new PatientCreated(fullName.value(),typeId.value())).apply();
@@ -40,22 +41,21 @@ public class Patient extends AggregateRoot<PatientId> {
         return patient;
     }
 
-    public void associateAppointment(AppointmentDate appointmentDate){
-        var appointmentId = new AppointmentId();
+    public void AssociateAppointment(AppointmentDate appointmentDate,AppointmentId appointmentId){
         Objects.requireNonNull(appointmentDate);
         appendChange(new AppointmentAssociated(appointmentDate.value(),appointmentId.value())).apply();
     }
 
-    public void addMedicalHistoryofAppointment(PatientId patientId, AppointmentId appointmentId, MedicalHistory medicalHistory){
+    public void AddMedicalHistoryofAppointment(PatientId patientId, AppointmentId appointmentId, MedicalHistory medicalHistory){
         Objects.requireNonNull(patientId);
         Objects.requireNonNull(appointmentId);
         appendChange(new MedicalHistoryofAppointmentAdded(patientId.value(),appointmentId.value(),medicalHistory.value())).apply();
     }
 
-    public void modifyEnable(PatientId patientId,Enable enable){
+    public void ModifyEnable(PatientId patientId,Enable enable){
         Objects.requireNonNull(patientId);
         Objects.requireNonNull(enable);
-        appendChange(new EnableModified(patientId.value(),enable.value()));
+        appendChange(new EnablePatientModified(patientId.value(),enable.value()));
     }
 
 }

@@ -3,8 +3,10 @@ package co.com.sofka.api;
 import co.com.sofka.model.generic.DomainEvent;
 import co.com.sofka.usecase.patient.AssociateAppointmentUseCase;
 import co.com.sofka.usecase.patient.CreatePatientUseCase;
+import co.com.sofka.usecase.patient.ModifyEnableUseCase;
 import co.com.sofka.usecase.patient.commands.AssociateAppointmentCommand;
 import co.com.sofka.usecase.patient.commands.CreatePatientCommand;
+import co.com.sofka.usecase.patient.commands.ModifyEnableCommand;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -17,7 +19,7 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
-public class RestController {
+public class PatientRestController {
     @Bean
     public RouterFunction<ServerResponse> createPatient(CreatePatientUseCase useCase){
 
@@ -38,6 +40,18 @@ public class RestController {
                 request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                         .body(BodyInserters.fromPublisher(useCase
                                 .apply(request.bodyToMono(AssociateAppointmentCommand.class)),
+                                DomainEvent.class))
+        );
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> updateEnablePatient(ModifyEnableUseCase useCase){
+
+        return route(
+                POST("/updateenable/patient").and(accept(MediaType.APPLICATION_JSON)),
+                request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(useCase
+                                        .apply(request.bodyToMono(ModifyEnableCommand.class)),
                                 DomainEvent.class))
         );
     }

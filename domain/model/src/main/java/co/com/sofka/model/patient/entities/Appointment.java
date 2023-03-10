@@ -14,11 +14,11 @@ public class Appointment extends Entity<AppointmentId> {
         this.appointmentDate = appointmentDate;
     }
 
-    public MedicalHistory getMedicalHistory() {
+    public MedicalHistory MedicalHistory() {
         return medicalHistory;
     }
 
-    public AppointmentDate getAppointmentDate() {
+    public AppointmentDate AppointmentDate() {
         return appointmentDate;
     }
 }
