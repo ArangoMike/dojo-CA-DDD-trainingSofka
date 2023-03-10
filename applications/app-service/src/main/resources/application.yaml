@@ -15,6 +15,12 @@ spring:
       mongodb:
         uri: "mongodb+srv://mikearango123:m123456@clusterbd.hstuodc.mongodb.net/?retryWrites=true&w=majority"
         database: angularsofka
+        rabbitmq:
+          host: "localhost"
+          username: "guest"
+          password: "guest"
+          virtual_host: /
+          port: 5672
 management:
   endpoints:
     web:

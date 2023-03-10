@@ -1,5 +1,6 @@
 package co.com.sofka.usecase.patient;
 
+import co.com.sofka.model.events.gateways.EventBus;
 import co.com.sofka.model.generic.DomainEvent;
 import co.com.sofka.model.patient.Patient;
 import co.com.sofka.model.patient.values.AppointmentDate;
@@ -17,10 +18,13 @@ public class AssociateAppointmentUseCase extends UseCaseForCommand<AssociateAppo
     private final DomainEventRepository repository;
     private final PatientRepository patientRepository;
 
+    private final EventBus bus;
 
-    public AssociateAppointmentUseCase(DomainEventRepository repository, PatientRepository patientRepository) {
+
+    public AssociateAppointmentUseCase(DomainEventRepository repository, PatientRepository patientRepository, EventBus bus) {
         this.repository = repository;
         this.patientRepository = patientRepository;
+        this.bus = bus;
     }
 
     @Override
@@ -30,6 +34,7 @@ public class AssociateAppointmentUseCase extends UseCaseForCommand<AssociateAppo
                 .flatMapIterable(events ->{
                     Patient patient = Patient.from(PatientId.of(command.getPatientId()), events);
                     var appointmentId = new AppointmentId();
+
                     patient.AssociateAppointment(new AppointmentDate(command.getAppointmentDate()),appointmentId);
 
                     patientRepository.addAppointmentPacient(new AssociateAppointmentCommand(appointmentId.value(),
@@ -37,9 +42,9 @@ public class AssociateAppointmentUseCase extends UseCaseForCommand<AssociateAppo
 
                     return patient.getUncommittedChanges();
                 }).map(event -> {
+                  String email =  patientRepository.findEmailById(command.getPatientId()).block();
+                        bus.publish(event, email);
                         return event;
-                }).flatMap(event ->{
-                        return repository.saveEvent(event);
-                }));
+                }).doOnNext(event ->repository.saveEvent(event)));
     }
 }

@@ -1,31 +1,30 @@
 package co.com.sofka.usecase.patient.commands;
 
-import co.com.sofka.model.patient.events.AppointmentAssociated;
 import co.com.sofka.usecase.generic.Command;
 
-import java.util.List;
 
-public class CreatePatientCommand extends Command {
+
+public class UpdatePatientCommand extends Command {
 
     private String patientId;
     private String enable;
     private String fullName;
     private String typeId;
     private String email;
-    private List<Object> appointments;
 
 
-    public CreatePatientCommand() {
+
+    public UpdatePatientCommand() {
     }
 
-    public CreatePatientCommand(String patientId, String fullName, String typeId,String email) {
+
+    public UpdatePatientCommand(String patientId, String enable, String fullName, String typeId, String email) {
         this.patientId = patientId;
-        this.enable = "true";
+        this.enable = enable;
         this.fullName = fullName;
         this.typeId = typeId;
         this.email = email;
     }
-
 
     public String getEmail() {
         return email;
@@ -33,14 +32,6 @@ public class CreatePatientCommand extends Command {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public List<Object> getAppointments() {
-        return appointments;
-    }
-
-    public void setAppointments(List<Object> appointments) {
-        this.appointments = appointments;
     }
 
     public String getEnable() {

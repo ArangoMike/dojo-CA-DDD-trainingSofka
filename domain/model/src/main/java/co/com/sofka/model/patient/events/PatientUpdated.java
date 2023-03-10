@@ -2,19 +2,19 @@ package co.com.sofka.model.patient.events;
 
 import co.com.sofka.model.generic.DomainEvent;
 
-public class PatientCreated extends DomainEvent {
+public class PatientUpdated extends DomainEvent {
 
     private String fullName;
     private String enable;
     private String typeId;
     private String email;
 
-    public PatientCreated(){
-        super("ramirez.fernandez.patientcreated");
+    public PatientUpdated(){
+        super("ramirez.fernandez.patientupdated");
     }
 
-    public PatientCreated( String fullName,String typeId,String email) {
-        super("ramirez.fernandez.patientcreated");
+    public PatientUpdated( String fullName,String typeId,String email) {
+        super("ramirez.fernandez.patientupdated");
         this.fullName = fullName;
         this.enable = "true";
         this.typeId = typeId;

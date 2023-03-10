@@ -7,6 +7,7 @@ public class AssociateAppointmentCommand extends Command {
 
   private String appointmentId;
     private String patientId;
+    private String email;
     private String appointmentDate;
 
 

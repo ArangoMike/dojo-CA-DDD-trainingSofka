@@ -3,10 +3,7 @@ package co.com.sofka.usecase.patient;
 import co.com.sofka.model.generic.DomainEvent;
 import co.com.sofka.model.patient.Patient;
 
-import co.com.sofka.model.patient.values.Enable;
-import co.com.sofka.model.patient.values.FullName;
-import co.com.sofka.model.patient.values.PatientId;
-import co.com.sofka.model.patient.values.TypeId;
+import co.com.sofka.model.patient.values.*;
 import co.com.sofka.usecase.gateways.DomainEventRepository;
 import co.com.sofka.usecase.gateways.PatientRepository;
 import co.com.sofka.usecase.generic.UseCaseForCommand;
@@ -30,9 +27,10 @@ public class CreatePatientUseCase extends UseCaseForCommand<CreatePatientCommand
             Patient patient = new Patient(PatientId.of(command.getPatientId()),
                     new FullName(command.getFullName()),
                     new TypeId(command.getTypeId()),
-                    new Enable("true"));
+                    new Enable("true"),
+                    new Email(command.getEmail()));
          patientRepository.createPatient(new CreatePatientCommand(command.getPatientId(),
-                 command.getFullName(), command.getTypeId())).subscribe().isDisposed();
+                 command.getFullName(), command.getTypeId(), command.getEmail())).subscribe().isDisposed();
                         return patient.getUncommittedChanges();
         }).flatMap(event -> {
           return  repository.saveEvent(event);

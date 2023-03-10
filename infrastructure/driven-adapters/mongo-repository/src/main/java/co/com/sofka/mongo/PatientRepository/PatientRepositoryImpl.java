@@ -58,4 +58,10 @@ public class PatientRepositoryImpl implements PatientRepository {
                 }).flatMap(res -> {return res;} );
     }
 
+    @Override
+    public Mono<String> findEmailById(String id) {
+        return dto.findById(id)
+                .map(patient -> patient.getEmail());
+    }
+
 }

@@ -12,4 +12,6 @@ public interface PatientRepository {
     Mono<CreatePatientCommand> updateEnablePacient(ModifyEnableCommand modifyEnableCommand);
 
     Mono<CreatePatientCommand> addAppointmentPacient(AssociateAppointmentCommand associateAppointmentCommand);
+
+    Mono<String> findEmailById(String id);
 }
