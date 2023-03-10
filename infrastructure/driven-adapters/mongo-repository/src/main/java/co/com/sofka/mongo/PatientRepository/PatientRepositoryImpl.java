@@ -1,14 +1,12 @@
 package co.com.sofka.mongo.PatientRepository;
 
 
-import co.com.sofka.model.patient.entities.Appointment;
-import co.com.sofka.model.patient.events.AppointmentAssociated;
-import co.com.sofka.model.patient.values.AppointmentId;
-import co.com.sofka.mongo.data.PatientDocument;
+import co.com.sofka.mongo.data.AppointmentDTO;
 import co.com.sofka.usecase.gateways.PatientRepository;
 import co.com.sofka.usecase.patient.commands.AssociateAppointmentCommand;
 import co.com.sofka.usecase.patient.commands.CreatePatientCommand;
-import co.com.sofka.usecase.patient.commands.ModifyEnableCommand;
+import co.com.sofka.usecase.patient.commands.ModifyEmailPatientCommand;
+import co.com.sofka.usecase.patient.commands.ModifyEnablePatientCommand;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -16,7 +14,6 @@ import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 @Slf4j
@@ -37,23 +34,34 @@ public class PatientRepositoryImpl implements PatientRepository {
     }
 
     @Override
-    public Mono<CreatePatientCommand> updateEnablePacient(ModifyEnableCommand modifyEnableCommand) {
-       return dto.findById(modifyEnableCommand.getPatientId())
-                .map(createPatientCommand -> {createPatientCommand.setEnable(modifyEnableCommand.getEnable());
+    public Mono<CreatePatientCommand> modifyEnablePatient(ModifyEnablePatientCommand modifyEnablePatientCommand) {
+       return dto.findById(modifyEnablePatientCommand.getPatientId())
+                .map(createPatientCommand -> {
+                    createPatientCommand.setEnable(modifyEnablePatientCommand.getEnable());
                 return dto.save(createPatientCommand);
                 }).flatMap(res -> {return res;} );
     }
 
     @Override
-    public Mono<CreatePatientCommand> addAppointmentPacient(AssociateAppointmentCommand associateAppointmentCommand) {
+    public Mono<CreatePatientCommand> modifyEmailPatient(ModifyEmailPatientCommand modifyEmailPatientCommand) {
+        return dto.findById(modifyEmailPatientCommand.getPatientId())
+                .map(patientCommand -> {
+                    patientCommand.setEmail(modifyEmailPatientCommand.getEmail());
+
+                    return dto.save(patientCommand);
+                }).flatMap(res -> {return res;} );
+    }
+
+    @Override
+    public Mono<CreatePatientCommand> addAppointmentPatient(AssociateAppointmentCommand associateAppointmentCommand) {
 
         return dto.findById(associateAppointmentCommand.getPatientId())
                 .map(patientCommand -> {
                     List<Object> appointments = new ArrayList<>();
-
-                    appointments.add(associateAppointmentCommand);
+                      var appointment = new AppointmentDTO(associateAppointmentCommand.getAppointmentId(),
+                              associateAppointmentCommand.getAppointmentDate());
+                    appointments.add(appointment);
                     patientCommand.setAppointments(appointments);
-                    log.info(patientCommand.getAppointments().toString()+"entramos");
                     return dto.save(patientCommand);
                 }).flatMap(res -> {return res;} );
     }

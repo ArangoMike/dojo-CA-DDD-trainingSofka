@@ -50,12 +50,10 @@ public class Patient extends AggregateRoot<PatientId> {
         appendChange(new EnablePatientModified(patientId.value(),enable.value()));
     }
 
-    public void UpdatePatient(PatientId patientId,FullName fullName, TypeId typeId,Email email){
+    public void ModifyEmailPatient(PatientId patientId,Email email){
         Objects.requireNonNull(patientId);
-        Objects.requireNonNull(fullName);
-        Objects.requireNonNull(typeId);
         Objects.requireNonNull(email);
-        appendChange(new PatientUpdated(fullName.value(),typeId.value(),email.value()));
+        appendChange(new EmailPatientModified(patientId.value(),email.value()));
     }
 
     public void AddMedicalHistoryofAppointment(PatientId patientId, AppointmentId appointmentId, MedicalHistory medicalHistory){

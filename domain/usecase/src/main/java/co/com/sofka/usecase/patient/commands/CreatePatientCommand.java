@@ -1,6 +1,6 @@
 package co.com.sofka.usecase.patient.commands;
 
-import co.com.sofka.model.patient.events.AppointmentAssociated;
+
 import co.com.sofka.usecase.generic.Command;
 
 import java.util.List;

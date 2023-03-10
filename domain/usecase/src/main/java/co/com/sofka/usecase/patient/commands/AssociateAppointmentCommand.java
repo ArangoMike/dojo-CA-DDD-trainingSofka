@@ -7,7 +7,6 @@ public class AssociateAppointmentCommand extends Command {
 
   private String appointmentId;
     private String patientId;
-    private String email;
     private String appointmentDate;
 
 
@@ -43,5 +42,4 @@ public class AssociateAppointmentCommand extends Command {
     public void setAppointmentDate(String appointmentDate) {
         this.appointmentDate = appointmentDate;
     }
-
 }

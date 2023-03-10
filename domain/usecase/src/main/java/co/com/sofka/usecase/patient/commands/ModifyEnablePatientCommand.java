@@ -2,14 +2,14 @@ package co.com.sofka.usecase.patient.commands;
 
 import co.com.sofka.usecase.generic.Command;
 
-public class ModifyEnableCommand extends Command {
+public class ModifyEnablePatientCommand extends Command {
 
     private String patientId;
     private String enable;
 
-    public ModifyEnableCommand(){}
+    public ModifyEnablePatientCommand(){}
 
-    public ModifyEnableCommand(String patientId, String enable) {
+    public ModifyEnablePatientCommand(String patientId, String enable) {
         this.patientId = patientId;
         this.enable = enable;
     }

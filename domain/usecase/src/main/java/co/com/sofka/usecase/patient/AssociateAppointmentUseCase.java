@@ -13,6 +13,8 @@ import co.com.sofka.usecase.gateways.DomainEventRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+
+
 public class AssociateAppointmentUseCase extends UseCaseForCommand<AssociateAppointmentCommand> {
 
     private final DomainEventRepository repository;
@@ -37,14 +39,14 @@ public class AssociateAppointmentUseCase extends UseCaseForCommand<AssociateAppo
 
                     patient.AssociateAppointment(new AppointmentDate(command.getAppointmentDate()),appointmentId);
 
-                    patientRepository.addAppointmentPacient(new AssociateAppointmentCommand(appointmentId.value(),
+                    patientRepository.addAppointmentPatient(new AssociateAppointmentCommand(appointmentId.value(),
                             command.getPatientId(), command.getAppointmentDate())).subscribe().isDisposed();
 
                     return patient.getUncommittedChanges();
-                }).map(event -> {
-                  String email =  patientRepository.findEmailById(command.getPatientId()).block();
-                        bus.publish(event, email);
-                        return event;
-                }).doOnNext(event ->repository.saveEvent(event)));
+                }).flatMap(event -> {
+                   return repository.saveEvent(event);
+                }).map(event ->{String email =  patientRepository.findEmailById(command.getPatientId()).block();
+                    bus.publish(event, email);
+                    return event;}));
     }
 }

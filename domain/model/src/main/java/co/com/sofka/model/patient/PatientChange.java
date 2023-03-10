@@ -5,7 +5,7 @@ import co.com.sofka.model.patient.entities.Appointment;
 import co.com.sofka.model.patient.events.AppointmentAssociated;
 import co.com.sofka.model.patient.events.EnablePatientModified;
 import co.com.sofka.model.patient.events.PatientCreated;
-import co.com.sofka.model.patient.events.PatientUpdated;
+import co.com.sofka.model.patient.events.EmailPatientModified;
 import co.com.sofka.model.patient.values.*;
 
 import java.util.ArrayList;
@@ -33,10 +33,7 @@ public class PatientChange extends EventChange {
             patient.enable = new Enable(event.getEnable());
         });
 
-        apply((PatientUpdated event)-> {
-            patient.fullName = new FullName(event.getFullName());
-            patient.typeId = new TypeId(event.getTypeId());
-            patient.enable = new Enable("true");
+        apply((EmailPatientModified event)-> {
             patient.email = new Email(event.getEmail());
         });
 
