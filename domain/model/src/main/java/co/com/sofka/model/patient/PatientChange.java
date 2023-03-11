@@ -2,10 +2,7 @@ package co.com.sofka.model.patient;
 
 import co.com.sofka.model.generic.EventChange;
 import co.com.sofka.model.patient.entities.Appointment;
-import co.com.sofka.model.patient.events.AppointmentAssociated;
-import co.com.sofka.model.patient.events.EnablePatientModified;
-import co.com.sofka.model.patient.events.PatientCreated;
-import co.com.sofka.model.patient.events.EmailPatientModified;
+import co.com.sofka.model.patient.events.*;
 import co.com.sofka.model.patient.values.*;
 
 import java.util.ArrayList;
@@ -38,16 +35,15 @@ public class PatientChange extends EventChange {
         });
 
 
-/*  COMO AGREGAR HISTORIAL MEDICO A ENTITY APPOINTMENT
+        apply((MedicalCheckupAppointmentAssigned event) -> {
 
-        apply((MedicalHistoryofAppointmentAdded event) -> {
-            MedicalHistory medicalHistory = new MedicalHistory(event.getMedicalHistory());
-
-            patient.appointmentId = event.getAppointmentId();
-
+            patient.appointments.forEach(appointment -> {
+                if (appointment.identity().value() == event.getAppointmentId()) {
+                    appointment.assignMedicalCheckup(event.getMedicalCheckup());
+                }});
         });
 
-
+/*
         apply((CommentAdded event)-> {
             Comment comment = new Comment(CommentId.of(event.getId()),
                     new Author(event.getAuthor()),

@@ -1,14 +1,8 @@
 package co.com.sofka.api;
 
 import co.com.sofka.model.generic.DomainEvent;
-import co.com.sofka.usecase.patient.AssociateAppointmentUseCase;
-import co.com.sofka.usecase.patient.CreatePatientUseCase;
-import co.com.sofka.usecase.patient.ModifyEmailPatientUseCase;
-import co.com.sofka.usecase.patient.ModifyEnablePatientUseCase;
-import co.com.sofka.usecase.patient.commands.AssociateAppointmentCommand;
-import co.com.sofka.usecase.patient.commands.CreatePatientCommand;
-import co.com.sofka.usecase.patient.commands.ModifyEmailPatientCommand;
-import co.com.sofka.usecase.patient.commands.ModifyEnablePatientCommand;
+import co.com.sofka.usecase.patient.*;
+import co.com.sofka.usecase.patient.commands.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -50,7 +44,7 @@ public class PatientRestController {
     public RouterFunction<ServerResponse> updateEnablePatient(ModifyEnablePatientUseCase useCase){
 
         return route(
-                POST("/updateenable/patient").and(accept(MediaType.APPLICATION_JSON)),
+                POST("/update/enable/patient").and(accept(MediaType.APPLICATION_JSON)),
                 request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                         .body(BodyInserters.fromPublisher(useCase
                                         .apply(request.bodyToMono(ModifyEnablePatientCommand.class)),
@@ -62,10 +56,22 @@ public class PatientRestController {
     public RouterFunction<ServerResponse> modifyEmailPatient(ModifyEmailPatientUseCase useCase){
 
         return route(
-                POST("/modifyemail/patient").and(accept(MediaType.APPLICATION_JSON)),
+                POST("/modify/email/patient").and(accept(MediaType.APPLICATION_JSON)),
                 request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                         .body(BodyInserters.fromPublisher(useCase
                                         .apply(request.bodyToMono(ModifyEmailPatientCommand.class)),
+                                DomainEvent.class))
+        );
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> assignMedicalCheckupAppointment(AssignMedicalCheckupAppointmentUseCase useCase){
+
+        return route(
+                POST("/assign/medicalcheckup/patient").and(accept(MediaType.APPLICATION_JSON)),
+                request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(useCase
+                                        .apply(request.bodyToMono(AssignMedicalCheckupAppointmentCommand.class)),
                                 DomainEvent.class))
         );
     }

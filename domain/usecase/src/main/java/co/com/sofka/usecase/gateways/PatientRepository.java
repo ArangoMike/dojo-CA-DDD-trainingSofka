@@ -1,10 +1,7 @@
 package co.com.sofka.usecase.gateways;
 
 
-import co.com.sofka.usecase.patient.commands.AssociateAppointmentCommand;
-import co.com.sofka.usecase.patient.commands.CreatePatientCommand;
-import co.com.sofka.usecase.patient.commands.ModifyEmailPatientCommand;
-import co.com.sofka.usecase.patient.commands.ModifyEnablePatientCommand;
+import co.com.sofka.usecase.patient.commands.*;
 import reactor.core.publisher.Mono;
 
 public interface PatientRepository {
@@ -17,4 +14,8 @@ public interface PatientRepository {
     Mono<CreatePatientCommand> addAppointmentPatient(AssociateAppointmentCommand associateAppointmentCommand);
 
     Mono<String> findEmailById(String id);
+
+    Mono<CreatePatientCommand> findById(String id);
+
+    Mono<CreatePatientCommand> assignMedicalCheckupByAppointmentById(AssignMedicalCheckupAppointmentCommand assignMedicalCheckupAppointmentCommand);
 }

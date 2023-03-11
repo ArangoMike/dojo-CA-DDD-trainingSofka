@@ -5,17 +5,22 @@ import co.com.sofka.model.patient.values.*;
 
 public class Appointment extends Entity<AppointmentId> {
 
-    private MedicalHistory medicalHistory;
+    private MedicalCheckup medicalCheckup;
     private AppointmentDate appointmentDate;
 
 
     public Appointment(AppointmentId entityId, AppointmentDate appointmentDate) {
         super(entityId);
+
         this.appointmentDate = appointmentDate;
     }
 
-    public MedicalHistory MedicalHistory() {
-        return medicalHistory;
+    public void assignMedicalCheckup(String medicalCheckup){
+        this.medicalCheckup = new MedicalCheckup(medicalCheckup);
+    }
+
+    public MedicalCheckup medicalCheckup() {
+        return medicalCheckup;
     }
 
     public AppointmentDate AppointmentDate() {

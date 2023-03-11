@@ -31,10 +31,11 @@ public class AssociateAppointmentUseCase extends UseCaseForCommand<AssociateAppo
 
     @Override
     public Flux<DomainEvent> apply(Mono<AssociateAppointmentCommand> associateAppointmentCommandMono) {
-        return associateAppointmentCommandMono.flatMapMany(command -> repository.findById(command.getPatientId())
+       return   associateAppointmentCommandMono.flatMapMany(command -> repository.findById(command.getPatientId())
                 .collectList()
                 .flatMapIterable(events ->{
                     Patient patient = Patient.from(PatientId.of(command.getPatientId()), events);
+
                     var appointmentId = new AppointmentId();
 
                     patient.AssociateAppointment(new AppointmentDate(command.getAppointmentDate()),appointmentId);
