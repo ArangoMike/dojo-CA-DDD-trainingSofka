@@ -1,38 +1,36 @@
 package co.com.sofka.usecase.patient;
 
+import co.com.sofka.model.agenda.events.AgendaDayScheduleAssigned;
 import co.com.sofka.model.events.gateways.EventBus;
 import co.com.sofka.model.generic.DomainEvent;
 import co.com.sofka.model.patient.Patient;
 import co.com.sofka.model.patient.values.AppointmentDate;
 import co.com.sofka.model.patient.values.AppointmentId;
 import co.com.sofka.model.patient.values.PatientId;
-import co.com.sofka.usecase.gateways.AgendaRepository;
-import co.com.sofka.usecase.gateways.PatientRepository;
-import co.com.sofka.usecase.generic.UseCaseForCommand;
-import co.com.sofka.usecase.patient.commands.AssociateAppointmentCommand;
 import co.com.sofka.usecase.gateways.DomainEventRepository;
+import co.com.sofka.usecase.gateways.PatientRepository;
+import co.com.sofka.usecase.patient.commands.AssociateAppointmentCommand;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.function.Function;
 
-public class AssociateAppointmentUseCase extends UseCaseForCommand<AssociateAppointmentCommand> {
+public class AssociateAppointmentEventUseCase implements Function<Mono<AgendaDayScheduleAssigned>, Flux<DomainEvent>> {
 
     private final DomainEventRepository repository;
     private final PatientRepository patientRepository;
 
     private final EventBus bus;
 
-
-    public AssociateAppointmentUseCase(DomainEventRepository repository, PatientRepository patientRepository, AgendaRepository agendaRepository, EventBus bus) {
+    public AssociateAppointmentEventUseCase(DomainEventRepository repository, PatientRepository patientRepository, EventBus bus) {
         this.repository = repository;
         this.patientRepository = patientRepository;
-
         this.bus = bus;
     }
 
     @Override
-    public Flux<DomainEvent> apply(Mono<AssociateAppointmentCommand> associateAppointmentCommandMono) {
-        return associateAppointmentCommandMono.flatMapMany(command -> repository.findById(command.getPatientId())
+    public Flux<DomainEvent> apply(Mono<AgendaDayScheduleAssigned> agendaDayScheduleAssignedMono) {
+        return agendaDayScheduleAssignedMono.flatMapMany(command -> repository.findById(command.getPatientId())
                 .collectList()
                 .flatMapIterable(events -> {
                     Patient patient = Patient.from(PatientId.of(command.getPatientId()), events);
@@ -53,7 +51,5 @@ public class AssociateAppointmentUseCase extends UseCaseForCommand<AssociateAppo
                     return event;
                 }));
     }
-
-
 }
 

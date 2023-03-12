@@ -1,13 +1,13 @@
 package co.com.sofka.api;
 
 import co.com.sofka.model.generic.DomainEvent;
-import co.com.sofka.usecase.agenda.AssociateDayUseCase;
-import co.com.sofka.usecase.agenda.CreateAgendaUseCase;
-import co.com.sofka.usecase.agenda.DisableScheduleDayUseCase;
-import co.com.sofka.usecase.agenda.GetAgendaUseCase;
+import co.com.sofka.usecase.agenda.*;
+import co.com.sofka.usecase.agenda.commands.AssignScheduleDayAgendaCommand;
 import co.com.sofka.usecase.agenda.commands.AssociateDayCommand;
 import co.com.sofka.usecase.agenda.commands.CreateAgendaCommand;
 import co.com.sofka.usecase.agenda.commands.DisableScheduleDayCommand;
+import co.com.sofka.usecase.patient.AssociateAppointmentUseCase;
+import co.com.sofka.usecase.patient.commands.AssociateAppointmentCommand;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -67,6 +67,19 @@ public class AgendaRestController {
                                         .apply((request.pathVariable("id"))),
                                 CreateAgendaCommand.class))
         );
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> validateAppointment(AssignScheduleDayAgendaUseCase useCase) {
+
+        return route(
+                POST("/assign/schedule/day/agenda").and(accept(MediaType.APPLICATION_JSON)),
+                request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(useCase
+                                        .apply(request.bodyToMono(AssignScheduleDayAgendaCommand.class)),
+                                DomainEvent.class))
+        );
+
     }
 
 }

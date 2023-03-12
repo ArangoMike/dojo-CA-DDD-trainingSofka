@@ -3,14 +3,23 @@ package co.com.sofka.model.agenda;
 
 import co.com.sofka.model.agenda.entities.Day;
 import co.com.sofka.model.agenda.events.AgendaCreated;
+import co.com.sofka.model.agenda.events.AgendaDayScheduleAssigned;
 import co.com.sofka.model.agenda.events.DayAssociated;
 import co.com.sofka.model.agenda.events.DayScheduleDisabled;
 import co.com.sofka.model.agenda.values.*;
 import co.com.sofka.model.generic.AggregateRoot;
 import co.com.sofka.model.generic.DomainEvent;
 
+import co.com.sofka.model.patient.values.AppointmentDate;
+import co.com.sofka.model.patient.values.AppointmentId;
 import co.com.sofka.model.patient.values.PatientId;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -44,6 +53,15 @@ public class Agenda extends AggregateRoot<AgendaId> {
         appendChange(new DayAssociated(dayId.value(),dayName.value(),schedules)).apply();
     }
 
+    public void AssignScheduleDayAgenda(AgendaId agendaId,PatientId patientId, AppointmentDate appointmentDate){
+
+        Objects.requireNonNull(patientId);
+        Objects.requireNonNull(agendaId);
+        Objects.requireNonNull(appointmentDate);
+        appendChange(new AgendaDayScheduleAssigned(agendaId.value(),patientId.value(),appointmentDate.value()));
+
+    }
+
     public void DisableScheduleDay(PatientId patientId,AgendaId agendaId,
                                    DayName dayName,String schedule,Boolean enable){
         Objects.requireNonNull(patientId);
@@ -51,6 +69,15 @@ public class Agenda extends AggregateRoot<AgendaId> {
         Objects.requireNonNull(dayName);
         Objects.requireNonNull(schedule);
         appendChange(new DayScheduleDisabled(agendaId.value(), patientId.value(), dayName.value(),schedule,enable));
+    }
+
+    public static LocalDateTime dateformat(String dateString) throws ParseException {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        Date date = dateFormat.parse(dateString);
+        Instant instant = date.toInstant();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        return localDateTime;
     }
 
 }

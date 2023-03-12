@@ -1,6 +1,6 @@
 package co.com.sofka.model.agenda.events;
 
-import co.com.sofka.model.agenda.values.Schedule;
+
 import co.com.sofka.model.generic.DomainEvent;
 
 public class DayScheduleDisabled extends DomainEvent {

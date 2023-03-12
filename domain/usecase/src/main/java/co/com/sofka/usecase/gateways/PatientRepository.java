@@ -17,5 +17,6 @@ public interface PatientRepository {
 
     Mono<CreatePatientCommand> findById(String id);
 
+
     Mono<CreatePatientCommand> assignMedicalCheckupByAppointmentById(AssignMedicalCheckupAppointmentCommand assignMedicalCheckupAppointmentCommand);
 }
