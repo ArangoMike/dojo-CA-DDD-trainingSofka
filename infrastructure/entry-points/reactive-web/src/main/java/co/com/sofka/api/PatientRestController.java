@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
@@ -45,12 +47,13 @@ public class PatientRestController {
     public RouterFunction<ServerResponse> validateAppointment(AssociateAppointmentUseCase useCase) {
 
         return route(
-                POST("/validate/appointment/{id}").and(accept(MediaType.APPLICATION_JSON)),
+                POST("/validate/appointment/{agendaid}").and(accept(MediaType.APPLICATION_JSON)),
                 request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                         .body(BodyInserters.fromPublisher(useCase
-                                .validationsAppointment(request.bodyToMono(AssociateAppointmentCommand.class),request.pathVariable("id")),
-                                DomainEvent.class))
+                                .validationsAppointment(request.bodyToMono(AssociateAppointmentCommand.class),request.pathVariable("agendaid")),
+                                Boolean.class))
         );
+
     }
 
 

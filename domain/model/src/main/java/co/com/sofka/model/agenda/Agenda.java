@@ -4,6 +4,7 @@ package co.com.sofka.model.agenda;
 import co.com.sofka.model.agenda.entities.Day;
 import co.com.sofka.model.agenda.events.AgendaCreated;
 import co.com.sofka.model.agenda.events.DayAssociated;
+import co.com.sofka.model.agenda.events.DayScheduleDisabled;
 import co.com.sofka.model.agenda.values.*;
 import co.com.sofka.model.generic.AggregateRoot;
 import co.com.sofka.model.generic.DomainEvent;
@@ -41,6 +42,15 @@ public class Agenda extends AggregateRoot<AgendaId> {
         Objects.requireNonNull(dayName);
         Objects.requireNonNull(schedules);
         appendChange(new DayAssociated(dayId.value(),dayName.value(),schedules)).apply();
+    }
+
+    public void DisableScheduleDay(PatientId patientId,AgendaId agendaId,
+                                   DayName dayName,String schedule,Boolean enable){
+        Objects.requireNonNull(patientId);
+        Objects.requireNonNull(agendaId);
+        Objects.requireNonNull(dayName);
+        Objects.requireNonNull(schedule);
+        appendChange(new DayScheduleDisabled(agendaId.value(), patientId.value(), dayName.value(),schedule,enable));
     }
 
 }
