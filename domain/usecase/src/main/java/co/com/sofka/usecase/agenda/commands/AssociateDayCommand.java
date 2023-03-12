@@ -6,16 +6,26 @@ import java.util.List;
 
 public class AssociateDayCommand extends Command {
 
+    private String dayId;
     private String agendaId;
     private String dayName;
     private List<?> schedules;
 
     public AssociateDayCommand(){}
 
-    public AssociateDayCommand(String agendaId, String dayName, List<?> schedules) {
+    public AssociateDayCommand(String dayId,String agendaId, String dayName, List<?> schedules) {
+        this.dayId = dayId;
         this.agendaId = agendaId;
         this.dayName = dayName;
         this.schedules = schedules;
+    }
+
+    public String getDayId() {
+        return dayId;
+    }
+
+    public void setDayId(String dayId) {
+        this.dayId = dayId;
     }
 
     public String getAgendaId() {

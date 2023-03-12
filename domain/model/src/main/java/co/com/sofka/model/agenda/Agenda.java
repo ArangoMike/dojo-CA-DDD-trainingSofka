@@ -36,8 +36,8 @@ public class Agenda extends AggregateRoot<AgendaId> {
         return agenda;
     }
 
-    public void AssociateDay(DayName dayName, List<Schedule> schedules){
-        var dayId = new DayId();
+    public void AssociateDay(DayName dayName, List<Schedule> schedules,DayId dayId){
+
         Objects.requireNonNull(dayName);
         Objects.requireNonNull(schedules);
         appendChange(new DayAssociated(dayId.value(),dayName.value(),schedules)).apply();

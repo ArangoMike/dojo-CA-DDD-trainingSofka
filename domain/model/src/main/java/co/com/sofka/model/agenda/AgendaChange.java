@@ -24,7 +24,6 @@ public class AgendaChange extends EventChange {
         apply((DayAssociated event)-> {
             Day day = new Day(DayId.of(event.getDayId()),
                     new DayName(event.getDayName()),
-                    new EnableDay(true),
                     (List<Schedule>) event.getSchedules());
             agenda.days.add(day);
         });

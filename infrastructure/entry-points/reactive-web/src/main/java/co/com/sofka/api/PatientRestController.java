@@ -17,28 +17,42 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 @Configuration
 public class PatientRestController {
     @Bean
-    public RouterFunction<ServerResponse> createPatient(CreatePatientUseCase useCase){
+    public RouterFunction<ServerResponse> createPatient(CreatePatientUseCase useCase) {
 
         return route(
                 POST("/create/patient").and(accept(MediaType.APPLICATION_JSON)),
                 request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                         .body(BodyInserters.fromPublisher(useCase
-                                .apply(request.bodyToMono(CreatePatientCommand.class)),
+                                        .apply(request.bodyToMono(CreatePatientCommand.class)),
                                 DomainEvent.class))
         );
     }
 
     @Bean
-    public RouterFunction<ServerResponse> associateAppointment(AssociateAppointmentUseCase useCase){
+    public RouterFunction<ServerResponse> associateAppointment(AssociateAppointmentUseCase useCase) {
 
         return route(
                 POST("/add/appointment").and(accept(MediaType.APPLICATION_JSON)),
                 request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                         .body(BodyInserters.fromPublisher(useCase
-                                .apply(request.bodyToMono(AssociateAppointmentCommand.class)),
+                                        .apply(request.bodyToMono(AssociateAppointmentCommand.class)),
                                 DomainEvent.class))
         );
     }
+
+
+    @Bean
+    public RouterFunction<ServerResponse> validateAppointment(AssociateAppointmentUseCase useCase) {
+
+        return route(
+                POST("/validate/appointment/{id}").and(accept(MediaType.APPLICATION_JSON)),
+                request -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(useCase
+                                .validationsAppointment(request.bodyToMono(AssociateAppointmentCommand.class),request.pathVariable("id")),
+                                DomainEvent.class))
+        );
+    }
+
 
     @Bean
     public RouterFunction<ServerResponse> updateEnablePatient(ModifyEnablePatientUseCase useCase){

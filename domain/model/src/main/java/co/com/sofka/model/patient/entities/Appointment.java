@@ -11,7 +11,6 @@ public class Appointment extends Entity<AppointmentId> {
 
     public Appointment(AppointmentId entityId, AppointmentDate appointmentDate) {
         super(entityId);
-
         this.appointmentDate = appointmentDate;
     }
 
