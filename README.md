@@ -1,3 +1,15 @@
+<h1 align="center">Clean Architecture y Domain Drive Design, Proyecto Doctor Ramirez Fernandez</h1>
+
+<h2 align="center">Análisis del problema</h2>
+<p align="center">---CLICK PARA VER IMAGEN---</p>
+
+
+
+
+
+
+
+
 # Proyecto Base Implementando Clean Architecture
 
 ## Antes de Iniciar
