@@ -6,8 +6,7 @@ import co.com.sofka.usecase.agenda.commands.AssignScheduleDayAgendaCommand;
 import co.com.sofka.usecase.agenda.commands.AssociateDayCommand;
 import co.com.sofka.usecase.agenda.commands.CreateAgendaCommand;
 import co.com.sofka.usecase.agenda.commands.DisableScheduleDayCommand;
-import co.com.sofka.usecase.patient.AssociateAppointmentUseCase;
-import co.com.sofka.usecase.patient.commands.AssociateAppointmentCommand;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
