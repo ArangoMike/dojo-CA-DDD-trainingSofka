@@ -13,8 +13,9 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitConfig {
     public static final String EXCHANGE = "core-posts-events";
     public static final String EVENTS_QUEUE = "events.queue";
+    public static final String EVENTS_QUEUE2 = "events.queue.2";
 
-    public static final String ROUTING_KEY = "events.routing.key";
+    public static final String ROUTING_KEY = "events.#";
 
     @Bean
     public RabbitAdmin rabbitAdmin(RabbitTemplate rabbitTemplate) {
@@ -28,6 +29,11 @@ public class RabbitConfig {
     }
 
     @Bean
+    public Queue events2Queue(){
+        return new Queue(EVENTS_QUEUE2);
+    }
+
+    @Bean
     public TopicExchange eventsExchange(){
         return new TopicExchange(EXCHANGE);
     }
@@ -36,7 +42,9 @@ public class RabbitConfig {
         return BindingBuilder.bind(this.eventsQueue()).to(this.eventsExchange()).with(ROUTING_KEY);
     }
 
-
-
+    @Bean
+    public Binding events2Binding(){
+        return BindingBuilder.bind(this.events2Queue()).to(this.eventsExchange()).with(ROUTING_KEY);
+    }
 
 }

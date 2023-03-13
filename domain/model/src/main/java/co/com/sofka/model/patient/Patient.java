@@ -39,6 +39,7 @@ public class Patient extends AggregateRoot<PatientId> {
     }
 
     public void AssociateAppointment(AppointmentDate appointmentDate,AppointmentId appointmentId){
+
         Objects.requireNonNull(appointmentDate);
         appendChange(new AppointmentAssociated(appointmentDate.value(),appointmentId.value())).apply();
     }

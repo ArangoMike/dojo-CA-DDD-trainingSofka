@@ -6,6 +6,7 @@ import co.com.sofka.model.agenda.values.EndDate;
 import co.com.sofka.model.agenda.values.InitialDate;
 import co.com.sofka.model.generic.DomainEvent;
 import co.com.sofka.usecase.agenda.commands.CreateAgendaCommand;
+import co.com.sofka.usecase.gateways.AgendaRepository;
 import co.com.sofka.usecase.gateways.DomainEventRepository;
 import co.com.sofka.usecase.generic.UseCaseForCommand;
 
@@ -17,8 +18,12 @@ public class CreateAgendaUseCase extends UseCaseForCommand<CreateAgendaCommand> 
 
     private final DomainEventRepository repository;
 
-    public CreateAgendaUseCase(DomainEventRepository repository) {
+    private final AgendaRepository agendaRepository;
+
+
+    public CreateAgendaUseCase(DomainEventRepository repository, AgendaRepository agendaRepository) {
         this.repository = repository;
+        this.agendaRepository = agendaRepository;
     }
 
     @Override
@@ -27,6 +32,8 @@ public class CreateAgendaUseCase extends UseCaseForCommand<CreateAgendaCommand> 
             Agenda agenda = new Agenda(AgendaId.of(command.getAgendaId()),
                     new InitialDate(command.getInitialDate()),
                     new EndDate(command.getEndDate()));
+            agendaRepository.createAgenda(new CreateAgendaCommand(command.getAgendaId(),
+                    command.getInitialDate(), command.getEndDate())).subscribe().isDisposed();
             return agenda.getUncommittedChanges();
         }).flatMap(event -> {
             return  repository.saveEvent(event);

@@ -1,7 +1,6 @@
 package co.com.sofka.events;
 
 
-
 import co.com.sofka.events.data.Notification;
 
 import co.com.sofka.model.events.gateways.EventBus;
@@ -17,7 +16,6 @@ public class RabbitMqEventBus implements EventBus {
     public static final String ROUTING_KEY = "events.routing.key";
     private final RabbitTemplate rabbitTemplate;
     private final JSONMapper serializer;
-
 
     public RabbitMqEventBus(RabbitTemplate rabbitTemplate, JSONMapper serializer) {
         this.serializer = serializer;
@@ -36,8 +34,5 @@ public class RabbitMqEventBus implements EventBus {
                 this.EXCHANGE, this.ROUTING_KEY, notification.serialize().getBytes()
         );
     }
-
-
-
 
 }
