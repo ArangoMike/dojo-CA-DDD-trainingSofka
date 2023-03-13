@@ -30,14 +30,19 @@
     </div>
 </a>
 
+<h2 align="center">Estructuras de datos - ENTRADA - SALIDA </h2>
+<p align="center">---CLICK PARA VER IMAGEN---</p>
 
+<a href="https://github.com/ArangoMike/dojo-CA-DDD-trainingSofka/blob/MikeA/DoctorRamiroFernandez-Page-4.drawio.png">
+    <div align="center">
+        <img src="https://github.com/ArangoMike/dojo-CA-DDD-trainingSofka/blob/MikeA/DoctorRamiroFernandez-Page-4.drawio.png"
+        width="50%" height="50%">
+    </div>
+</a>
 
+<h1 align="center"> Autor</h1>
 
-
-
-
-
-
+<p align="center">Mike Arango - Michaelarango0531@gmail.com</p>
 
 
 # Proyecto Base Implementando Clean Architecture
