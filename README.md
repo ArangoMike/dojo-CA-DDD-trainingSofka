@@ -6,9 +6,20 @@
 <a href=https://github.com/ArangoMike/dojo-CA-DDD-trainingSofka/blob/MikeA/DoctorRamiroFernandez-Subdominio%20Core.drawio.png>
     <div align="center">
         <img src="https://github.com/ArangoMike/dojo-CA-DDD-trainingSofka/blob/MikeA/DoctorRamiroFernandez-Subdominio%20Core.drawio.png"
-        width="35%" height="35%">
+        width="45%" height="35%">
     </div>
 </a>
+
+<h2 align="center">Modelamiento de Dominio</h2>
+<p align="center">---CLICK PARA VER IMAGEN---</p>
+
+<a href="https://github.com/ArangoMike/dojo-CA-DDD-trainingSofka/blob/MikeA/DoctorRamiroFernandez-Modelamiento.drawio.png">
+    <div align="center">
+        <img src="https://github.com/ArangoMike/dojo-CA-DDD-trainingSofka/blob/MikeA/DoctorRamiroFernandez-Modelamiento.drawio.png"
+        width="50%" height="50%">
+    </div>
+</a>
+
 
 
 
