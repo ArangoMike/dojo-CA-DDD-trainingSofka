@@ -2,10 +2,7 @@ package co.com.sofka.model.agenda;
 
 
 import co.com.sofka.model.agenda.entities.Day;
-import co.com.sofka.model.agenda.events.AgendaCreated;
-import co.com.sofka.model.agenda.events.AgendaDayScheduleAssigned;
-import co.com.sofka.model.agenda.events.DayAssociated;
-import co.com.sofka.model.agenda.events.DayScheduleDisabled;
+import co.com.sofka.model.agenda.events.*;
 import co.com.sofka.model.agenda.values.*;
 import co.com.sofka.model.generic.AggregateRoot;
 import co.com.sofka.model.generic.DomainEvent;
@@ -70,6 +67,13 @@ public class Agenda extends AggregateRoot<AgendaId> {
         Objects.requireNonNull(schedule);
         appendChange(new DayScheduleDisabled(agendaId.value(), patientId.value(), dayName.value(),schedule,enable));
     }
+
+    public void AssociatePatient(AgendaId agendaId,PatientId patientId){
+        Objects.requireNonNull(patientId);
+        Objects.requireNonNull(agendaId);
+        appendChange(new PatientAssociated(agendaId.value(),patientId.value()));
+    }
+
 
     public static LocalDateTime dateformat(String dateString) throws ParseException {
 

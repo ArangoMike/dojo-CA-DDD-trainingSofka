@@ -1,12 +1,10 @@
 package co.com.sofka.model.agenda;
 
 import co.com.sofka.model.agenda.entities.Day;
-import co.com.sofka.model.agenda.events.AgendaCreated;
-import co.com.sofka.model.agenda.events.AgendaDayScheduleAssigned;
-import co.com.sofka.model.agenda.events.DayAssociated;
-import co.com.sofka.model.agenda.events.DayScheduleDisabled;
+import co.com.sofka.model.agenda.events.*;
 import co.com.sofka.model.agenda.values.*;
 import co.com.sofka.model.generic.EventChange;
+import co.com.sofka.model.patient.values.PatientId;
 import reactor.core.publisher.Mono;
 
 import java.text.ParseException;
@@ -16,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static co.com.sofka.model.agenda.Agenda.dateformat;
-
 
 public class AgendaChange extends EventChange {
 
@@ -34,6 +31,10 @@ public class AgendaChange extends EventChange {
                     new DayName(event.getDayName()),
                     (List<Schedule>) event.getSchedules());
             agenda.days.add(day);
+        });
+
+        apply((PatientAssociated event)-> {
+            agenda.patients.add(PatientId.of(event.getPatientId()));
         });
 
         apply((AgendaDayScheduleAssigned event)->{
@@ -69,7 +70,6 @@ public class AgendaChange extends EventChange {
                 }
             }
         });
-
 
         apply((DayScheduleDisabled event)-> {
 

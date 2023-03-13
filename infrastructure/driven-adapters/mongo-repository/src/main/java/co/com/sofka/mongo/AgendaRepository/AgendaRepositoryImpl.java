@@ -1,13 +1,8 @@
 package co.com.sofka.mongo.AgendaRepository;
 
 
-
-import co.com.sofka.model.agenda.entities.Day;
-import co.com.sofka.model.agenda.values.Schedule;
-import co.com.sofka.mongo.data.AgendaDocument;
 import co.com.sofka.mongo.data.DayDTO;
 import co.com.sofka.mongo.data.ScheduleDTO;
-import co.com.sofka.usecase.agenda.CreateAgendaUseCase;
 import co.com.sofka.usecase.agenda.commands.AssociateDayCommand;
 import co.com.sofka.usecase.agenda.commands.CreateAgendaCommand;
 import co.com.sofka.usecase.agenda.commands.DisableScheduleDayCommand;
@@ -72,7 +67,6 @@ public class AgendaRepositoryImpl implements AgendaRepository {
 
        LocalDateTime scheduleformat = dateformat(schedule);
 
-
         Mono<Boolean> res= dto.findById(id)
                 .flatMap(agendadoc -> {
                     // Buscamos el día con dayName "Monday"
@@ -112,6 +106,15 @@ public class AgendaRepositoryImpl implements AgendaRepository {
     @Override
     public Mono<CreateAgendaCommand> getAgendaByid(String id) {
         return dto.findById(id);
+    }
+
+    @Override
+    public Mono<CreateAgendaCommand> associatePatientId(String patientId, String id) {
+        return dto.findById(id)
+                .flatMap(agenda-> {
+                    agenda.getPatients().add(patientId);
+                    return dto.save(agenda);
+                });
     }
 
     @Override

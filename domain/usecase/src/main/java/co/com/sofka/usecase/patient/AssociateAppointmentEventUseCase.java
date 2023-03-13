@@ -19,7 +19,6 @@ public class AssociateAppointmentEventUseCase implements Function<Mono<AgendaDay
 
     private final DomainEventRepository repository;
     private final PatientRepository patientRepository;
-
     private final EventBus bus;
 
     public AssociateAppointmentEventUseCase(DomainEventRepository repository, PatientRepository patientRepository, EventBus bus) {

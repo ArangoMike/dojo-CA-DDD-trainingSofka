@@ -11,9 +11,9 @@ public class DayAssociated extends DomainEvent {
     private String dayName;
     private List<?> schedules;
 
-    public DayAssociated(){super("ramirez.fernandez.dayassocated");}
+    public DayAssociated(){super("ramirez.fernandez.dayassociated");}
     public DayAssociated(String dayId,String dayName, List<?> schedules) {
-        super("ramirez.fernandez.dayassocated");
+        super("ramirez.fernandez.dayassociated");
         this.dayId = dayId;
         this.dayName = dayName;
         this.schedules = schedules;

@@ -19,6 +19,9 @@ public interface AgendaRepository {
 
     Mono<CreateAgendaCommand> getAgendaByid(String id);
 
+
+    Mono<CreateAgendaCommand> associatePatientId(String patientId,String id);
+
     Mono<String> disableScheduleDay(DisableScheduleDayCommand disableScheduleDayCommand);
 
 }
