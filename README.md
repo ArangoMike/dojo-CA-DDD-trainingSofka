@@ -1,3 +1,45 @@
+<h1 align="center">Clean Architecture y Domain Drive Design, Proyecto Doctor Ramirez Fernandez</h1>
+
+<h2 align="center">Análisis del problema</h2>
+<p align="center">---CLICK PARA VER IMAGEN---</p>
+
+<a href=https://github.com/ArangoMike/dojo-CA-DDD-trainingSofka/blob/MikeA/DoctorRamiroFernandez-Subdominio%20Core.drawio.png>
+    <div align="center">
+        <img src="https://github.com/ArangoMike/dojo-CA-DDD-trainingSofka/blob/MikeA/DoctorRamiroFernandez-Subdominio%20Core.drawio.png"
+        width="45%" height="35%">
+    </div>
+</a>
+
+<h2 align="center">Modelamiento de Dominio</h2>
+<p align="center">---CLICK PARA VER IMAGEN---</p>
+
+<a href="https://github.com/ArangoMike/dojo-CA-DDD-trainingSofka/blob/MikeA/DoctorRamiroFernandez-Modelamiento.drawio.png">
+    <div align="center">
+        <img src="https://github.com/ArangoMike/dojo-CA-DDD-trainingSofka/blob/MikeA/DoctorRamiroFernandez-Modelamiento.drawio.png"
+        width="50%" height="50%">
+    </div>
+</a>
+
+<h2 align="center">Eventos de Dominio</h2>
+<p align="center">---CLICK PARA VER IMAGEN---</p>
+
+<a href="https://github.com/ArangoMike/dojo-CA-DDD-trainingSofka/blob/MikeA/DoctorRamiroFernandez-Eventos%20de%20Dominio.drawio.png">
+    <div align="center">
+        <img src="https://github.com/ArangoMike/dojo-CA-DDD-trainingSofka/blob/MikeA/DoctorRamiroFernandez-Eventos%20de%20Dominio.drawio.png"
+        width="50%" height="50%">
+    </div>
+</a>
+
+
+
+
+
+
+
+
+
+
+
 # Proyecto Base Implementando Clean Architecture
 
 ## Antes de Iniciar
