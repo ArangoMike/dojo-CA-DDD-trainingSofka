@@ -3,7 +3,12 @@
 <h2 align="center">Análisis del problema</h2>
 <p align="center">---CLICK PARA VER IMAGEN---</p>
 
-
+<a href=https://drive.google.com/file/d/1CRnb0oKv-7GniW4qo7i6JqTqKTZZGNl9/view?usp=sharing>
+    <div align="center">
+        <img src="https://drive.google.com/file/d/1CRnb0oKv-7GniW4qo7i6JqTqKTZZGNl9/view?usp=sharing"
+        width="35%" height="35%">
+    </div>
+</a>
 
 
 
