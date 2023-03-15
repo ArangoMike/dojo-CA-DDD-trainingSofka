@@ -10,9 +10,9 @@ import reactor.core.publisher.Mono;
 
 public interface AgendaRepository {
 
-    Mono<CreateAgendaCommand> createAgenda(CreateAgendaCommand createAgendaCommand);
+    Mono<Void> createAgenda(CreateAgendaCommand createAgendaCommand);
 
-    Mono<CreateAgendaCommand> addDayAgenda(AssociateDayCommand associateDayCommand);
+    Mono<Void> addDayAgenda(AssociateDayCommand associateDayCommand);
 
 
     Mono<Boolean> assignSchedule(String schedule,String id) ;

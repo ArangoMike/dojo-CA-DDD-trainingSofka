@@ -30,7 +30,7 @@ public class ModifyEnablePatientUseCase extends UseCaseForCommand<ModifyEnablePa
                     Patient patient = Patient.from(PatientId.of(command.getPatientId()),events);
 
                     patient.ModifyEnable(PatientId.of(command.getPatientId()),new Enable(command.getEnable()));
-                  var patien =  patientRepository.modifyEnablePatient(new ModifyEnablePatientCommand(command.getPatientId(),
+                            patientRepository.modifyEnablePatient(new ModifyEnablePatientCommand(command.getPatientId(),
                             command.getEnable())).subscribe();
                     return patient.getUncommittedChanges();
                 }).map(event -> {

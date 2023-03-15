@@ -45,8 +45,8 @@ public class AssociateAppointmentEventUseCase implements Function<Mono<AgendaDay
                 }).flatMap(event -> {
                     return repository.saveEvent(event);
                 }).map(event -> {
-                    String email = String.valueOf(patientRepository.findEmailById(command.getPatientId()));
-                    bus.publish(event, email);
+                    patientRepository.findEmailById(command.getPatientId()).subscribe(email ->{
+                        bus.publish(event, email);});
                     return event;
                 }));
     }

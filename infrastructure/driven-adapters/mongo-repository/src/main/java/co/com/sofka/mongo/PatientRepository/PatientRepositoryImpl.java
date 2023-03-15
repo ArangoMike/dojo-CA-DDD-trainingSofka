@@ -21,14 +21,13 @@ public class PatientRepositoryImpl implements PatientRepository {
 
     private  MongoRepositoryAdapter dto;
 
-    private  MongoDBRepository repository;
-
 
     @Override
-    public Mono<CreatePatientCommand> createPatient(CreatePatientCommand patientCreated) {
+    public Mono<Void> createPatient(CreatePatientCommand patientCreated) {
         var appointments = new ArrayList<Object>();
         patientCreated.setAppointments(appointments);
-        return dto.save(patientCreated);
+        return dto.save(patientCreated).map(patientCommand ->{
+            log.info("aa"+patientCommand); return patientCommand;}).then();
     }
 
     @Override
@@ -51,7 +50,7 @@ public class PatientRepositoryImpl implements PatientRepository {
     }
 
     @Override
-    public Mono<CreatePatientCommand> addAppointmentPatient(AssociateAppointmentCommand associateAppointmentCommand) {
+    public Mono<Void> addAppointmentPatient(AssociateAppointmentCommand associateAppointmentCommand) {
 
         return dto.findById(associateAppointmentCommand.getPatientId())
                 .map(patientCommand -> {
@@ -61,7 +60,7 @@ public class PatientRepositoryImpl implements PatientRepository {
 
                     patientCommand.getAppointments().add(appointment);
                     return dto.save(patientCommand);
-                }).flatMap(res -> {return res;} );
+                }).then();
     }
 
     @Override

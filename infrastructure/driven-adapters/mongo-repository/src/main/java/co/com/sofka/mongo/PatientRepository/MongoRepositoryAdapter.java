@@ -1,7 +1,7 @@
 package co.com.sofka.mongo.PatientRepository;
 
 
-import co.com.sofka.model.patient.events.PatientCreated;
+
 import co.com.sofka.mongo.data.PatientDocument;
 import co.com.sofka.mongo.helper.AdapterOperations;
 import co.com.sofka.usecase.patient.commands.CreatePatientCommand;

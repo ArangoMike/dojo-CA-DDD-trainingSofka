@@ -56,7 +56,6 @@ public class AssignScheduleDayAgendaUseCase extends UseCaseForCommand<AssignSche
             return event;
         });
 
-
     }
 }
 

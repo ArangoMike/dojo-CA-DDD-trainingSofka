@@ -33,10 +33,13 @@ public class CreateAgendaUseCase extends UseCaseForCommand<CreateAgendaCommand> 
                     new InitialDate(command.getInitialDate()),
                     new EndDate(command.getEndDate()));
             agendaRepository.createAgenda(new CreateAgendaCommand(command.getAgendaId(),
-                    command.getInitialDate(), command.getEndDate())).subscribe().isDisposed();
+                    command.getInitialDate(), command.getEndDate())).subscribe();
             return agenda.getUncommittedChanges();
         }).flatMap(event -> {
-            return  repository.saveEvent(event);
+            if (event == null) {
+                return Mono.empty();
+            }
+            return repository.saveEvent(event);
         }).map(event -> {
             return event;
         });

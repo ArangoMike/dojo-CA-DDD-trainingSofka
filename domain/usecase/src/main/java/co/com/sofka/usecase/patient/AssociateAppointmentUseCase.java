@@ -6,7 +6,6 @@ import co.com.sofka.model.patient.Patient;
 import co.com.sofka.model.patient.values.AppointmentDate;
 import co.com.sofka.model.patient.values.AppointmentId;
 import co.com.sofka.model.patient.values.PatientId;
-import co.com.sofka.usecase.gateways.AgendaRepository;
 import co.com.sofka.usecase.gateways.PatientRepository;
 import co.com.sofka.usecase.generic.UseCaseForCommand;
 import co.com.sofka.usecase.patient.commands.AssociateAppointmentCommand;
@@ -23,10 +22,9 @@ public class AssociateAppointmentUseCase extends UseCaseForCommand<AssociateAppo
     private final EventBus bus;
 
 
-    public AssociateAppointmentUseCase(DomainEventRepository repository, PatientRepository patientRepository, AgendaRepository agendaRepository, EventBus bus) {
+    public AssociateAppointmentUseCase(DomainEventRepository repository, PatientRepository patientRepository, EventBus bus) {
         this.repository = repository;
         this.patientRepository = patientRepository;
-
         this.bus = bus;
     }
 
@@ -42,18 +40,17 @@ public class AssociateAppointmentUseCase extends UseCaseForCommand<AssociateAppo
                     patient.AssociateAppointment(new AppointmentDate(command.getAppointmentDate()), appointmentId);
 
                     patientRepository.addAppointmentPatient(new AssociateAppointmentCommand(appointmentId.value(),
-                            command.getPatientId(), command.getAppointmentDate())).subscribe().isDisposed();
+                            command.getPatientId(), command.getAppointmentDate())).subscribe();
 
                     return patient.getUncommittedChanges();
                 }).flatMap(event -> {
                     return repository.saveEvent(event);
                 }).map(event -> {
-                    String email = String.valueOf(patientRepository.findEmailById(command.getPatientId()));
-                    bus.publish(event, email);
+                patientRepository.findEmailById(command.getPatientId()).subscribe(email ->{
+
+                    bus.publish(event, email);});
                     return event;
                 }));
     }
-
-
 }
 

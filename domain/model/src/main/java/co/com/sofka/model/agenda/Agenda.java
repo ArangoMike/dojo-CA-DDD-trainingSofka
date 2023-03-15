@@ -6,9 +6,7 @@ import co.com.sofka.model.agenda.events.*;
 import co.com.sofka.model.agenda.values.*;
 import co.com.sofka.model.generic.AggregateRoot;
 import co.com.sofka.model.generic.DomainEvent;
-
 import co.com.sofka.model.patient.values.AppointmentDate;
-import co.com.sofka.model.patient.values.AppointmentId;
 import co.com.sofka.model.patient.values.PatientId;
 
 import java.text.ParseException;

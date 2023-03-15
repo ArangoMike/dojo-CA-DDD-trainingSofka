@@ -36,7 +36,7 @@ public class AssociateDayUseCase extends UseCaseForCommand<AssociateDayCommand> 
                     agenda.AssociateDay(new DayName(command.getDayName()),(List<Schedule>)command.getSchedules(),dayId);
 
                     agendaRepository.addDayAgenda(new AssociateDayCommand(dayId.value(),
-                            command.getAgendaId(), command.getDayName(), command.getSchedules())).subscribe().isDisposed();
+                            command.getAgendaId(), command.getDayName(), command.getSchedules())).subscribe();
 
                     return agenda.getUncommittedChanges();
                 }).map(event -> {

@@ -6,6 +6,7 @@ import co.com.sofka.events.data.Notification;
 import co.com.sofka.model.events.gateways.EventBus;
 import co.com.sofka.model.generic.DomainEvent;
 import co.com.sofka.serializer.JSONMapper;
+import org.reactivestreams.Publisher;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +24,7 @@ public class RabbitMqEventBus implements EventBus {
     }
 
     @Override
-    public void publish(DomainEvent event,String email){
+    public Publisher<?> publish(DomainEvent event, String email){
 
         var notification = new Notification(
                 event.getClass().getTypeName(),
@@ -33,6 +34,7 @@ public class RabbitMqEventBus implements EventBus {
         rabbitTemplate.convertAndSend(
                 this.EXCHANGE, this.ROUTING_KEY, notification.serialize().getBytes()
         );
+        return null;
     }
 
 }

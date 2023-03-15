@@ -29,12 +29,17 @@ public class CreatePatientUseCase extends UseCaseForCommand<CreatePatientCommand
                     new TypeId(command.getTypeId()),
                     new Enable("true"),
                     new Email(command.getEmail()));
-         patientRepository.createPatient(new CreatePatientCommand(command.getPatientId(),
-                 command.getFullName(), command.getTypeId(), command.getEmail())).subscribe().isDisposed();
-                        return patient.getUncommittedChanges();
+
+              patientRepository.createPatient(new CreatePatientCommand(command.getPatientId(),
+                            command.getFullName(), command.getTypeId(), command.getEmail())).subscribe();
+
+           return patient.getUncommittedChanges();
         }).flatMap(event -> {
-          return  repository.saveEvent(event);
-            }).map(event -> {
+            if (event == null) {
+                return Mono.empty();
+            }
+            return repository.saveEvent(event);
+        }).map(event -> {
             return event;
         });
     }

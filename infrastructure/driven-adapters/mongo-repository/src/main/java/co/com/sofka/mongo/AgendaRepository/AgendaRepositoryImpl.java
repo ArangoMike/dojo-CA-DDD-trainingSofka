@@ -36,7 +36,7 @@ public class AgendaRepositoryImpl implements AgendaRepository {
 
 
     @Override
-    public Mono<CreateAgendaCommand> createAgenda(CreateAgendaCommand createAgendaCommand) {
+    public Mono<Void> createAgenda(CreateAgendaCommand createAgendaCommand) {
 
         var days = new ArrayList<>();
         var patients = new ArrayList<String>();
@@ -44,12 +44,13 @@ public class AgendaRepositoryImpl implements AgendaRepository {
 
         createAgendaCommand.setDays(days);
         createAgendaCommand.setPatients(patients);
-        return dto.save(createAgendaCommand);
+        return dto.save(createAgendaCommand)
+                .then();
 
     }
 
     @Override
-    public Mono<CreateAgendaCommand> addDayAgenda(AssociateDayCommand associateDayCommand) {
+    public Mono<Void> addDayAgenda(AssociateDayCommand associateDayCommand) {
         return dto.findById(associateDayCommand.getAgendaId())
                 .map(agendaCommand -> {
 
@@ -58,7 +59,7 @@ public class AgendaRepositoryImpl implements AgendaRepository {
 
                     agendaCommand.getDays().add(day);
                     return dto.save(agendaCommand);
-                }).flatMap(res -> {return res;} );
+                }).then();
     }
 
     @SneakyThrows

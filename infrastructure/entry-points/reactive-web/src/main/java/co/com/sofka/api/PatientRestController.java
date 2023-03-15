@@ -1,8 +1,6 @@
 package co.com.sofka.api;
 
 import co.com.sofka.model.generic.DomainEvent;
-import co.com.sofka.usecase.agenda.GetAgendaUseCase;
-import co.com.sofka.usecase.agenda.commands.CreateAgendaCommand;
 import co.com.sofka.usecase.patient.*;
 import co.com.sofka.usecase.patient.commands.*;
 import org.springframework.context.annotation.Bean;
@@ -11,8 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
