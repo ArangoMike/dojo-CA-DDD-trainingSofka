@@ -40,7 +40,7 @@ public class AssignMedicalCheckupAppointmentUseCase extends UseCaseForCommand<As
 
                     patientRepository.assignMedicalCheckupByAppointmentById(
                             new AssignMedicalCheckupAppointmentCommand(command.getPatientId(),
-                            command.getAppointmentId(), command.getMedicalCheckup())).subscribe().isDisposed();
+                            command.getAppointmentId(), command.getMedicalCheckup())).subscribe();
 
                     return patient.getUncommittedChanges();
                 }).flatMap(event -> {

@@ -15,13 +15,13 @@ public interface AgendaRepository {
     Mono<Void> addDayAgenda(AssociateDayCommand associateDayCommand);
 
 
-    Mono<Boolean> assignSchedule(String schedule,String id) ;
+    Mono<Void> assignSchedule(String schedule,String id) ;
 
     Mono<CreateAgendaCommand> getAgendaByid(String id);
 
 
-    Mono<CreateAgendaCommand> associatePatientId(String patientId,String id);
+    Mono<Void> associatePatientId(String patientId,String id);
 
-    Mono<String> disableScheduleDay(DisableScheduleDayCommand disableScheduleDayCommand);
+    Mono<Void> disableScheduleDay(DisableScheduleDayCommand disableScheduleDayCommand);
 
 }

@@ -5,13 +5,10 @@ import co.com.sofka.model.agenda.events.AgendaDayScheduleAssigned;
 import co.com.sofka.model.agenda.values.AgendaId;
 import co.com.sofka.model.events.gateways.EventBus;
 import co.com.sofka.model.generic.DomainEvent;
-import co.com.sofka.model.patient.Patient;
-import co.com.sofka.model.patient.values.AppointmentDate;
-import co.com.sofka.model.patient.values.AppointmentId;
+
 import co.com.sofka.model.patient.values.PatientId;
 import co.com.sofka.usecase.gateways.AgendaRepository;
 import co.com.sofka.usecase.gateways.DomainEventRepository;
-import co.com.sofka.usecase.patient.commands.AssociateAppointmentCommand;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

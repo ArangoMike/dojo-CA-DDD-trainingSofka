@@ -6,9 +6,9 @@ import reactor.core.publisher.Mono;
 public interface PatientRepository {
     Mono<Void> createPatient(CreatePatientCommand patientCreated);
 
-    Mono<CreatePatientCommand> modifyEnablePatient(ModifyEnablePatientCommand modifyEnablePatientCommand);
+    Mono<Void> modifyEnablePatient(ModifyEnablePatientCommand modifyEnablePatientCommand);
 
-    Mono<CreatePatientCommand> modifyEmailPatient(ModifyEmailPatientCommand modifyEmailPatientCommand);
+    Mono<Void> modifyEmailPatient(ModifyEmailPatientCommand modifyEmailPatientCommand);
 
     Mono<Void> addAppointmentPatient(AssociateAppointmentCommand associateAppointmentCommand);
 
@@ -16,5 +16,5 @@ public interface PatientRepository {
 
     Mono<CreatePatientCommand> findById(String id);
 
-    Mono<CreatePatientCommand> assignMedicalCheckupByAppointmentById(AssignMedicalCheckupAppointmentCommand assignMedicalCheckupAppointmentCommand);
+    Mono<Void> assignMedicalCheckupByAppointmentById(AssignMedicalCheckupAppointmentCommand assignMedicalCheckupAppointmentCommand);
 }

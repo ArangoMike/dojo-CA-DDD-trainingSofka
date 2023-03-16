@@ -31,22 +31,22 @@ public class PatientRepositoryImpl implements PatientRepository {
     }
 
     @Override
-    public Mono<CreatePatientCommand> modifyEnablePatient(ModifyEnablePatientCommand modifyEnablePatientCommand) {
+    public Mono<Void> modifyEnablePatient(ModifyEnablePatientCommand modifyEnablePatientCommand) {
        return dto.findById(modifyEnablePatientCommand.getPatientId())
                 .map(createPatientCommand -> {
                     createPatientCommand.setEnable(modifyEnablePatientCommand.getEnable());
                 return dto.save(createPatientCommand);
-                }).flatMap(res -> {return res;} );
+                }).then();
     }
 
     @Override
-    public Mono<CreatePatientCommand> modifyEmailPatient(ModifyEmailPatientCommand modifyEmailPatientCommand) {
+    public Mono<Void> modifyEmailPatient(ModifyEmailPatientCommand modifyEmailPatientCommand) {
         return dto.findById(modifyEmailPatientCommand.getPatientId())
                 .map(patientCommand -> {
                     patientCommand.setEmail(modifyEmailPatientCommand.getEmail());
 
                     return dto.save(patientCommand);
-                }).flatMap(res -> {return res;} );
+                }).then();
     }
 
     @Override
@@ -75,7 +75,7 @@ public class PatientRepositoryImpl implements PatientRepository {
     }
 
     @Override
-    public Mono<CreatePatientCommand> assignMedicalCheckupByAppointmentById(AssignMedicalCheckupAppointmentCommand assignMedicalCheckupAppointmentCommand) {
+    public Mono<Void> assignMedicalCheckupByAppointmentById(AssignMedicalCheckupAppointmentCommand assignMedicalCheckupAppointmentCommand) {
 
         return dto.findById(assignMedicalCheckupAppointmentCommand.getPatientId())
                 .map(patientCommand -> {
@@ -93,7 +93,7 @@ public class PatientRepositoryImpl implements PatientRepository {
                         }
                     }
                     return dto.save(patientCommand);
-                }).flatMap(res -> {return res;} );
+                }).then();
     }
 
 }

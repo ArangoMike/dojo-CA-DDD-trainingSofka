@@ -34,7 +34,6 @@ public class PatientChange extends EventChange {
             patient.email = new Email(event.getEmail());
         });
 
-
         apply((MedicalCheckupAppointmentAssigned event) -> {
 
             patient.appointments.forEach(appointment -> {
@@ -43,14 +42,6 @@ public class PatientChange extends EventChange {
                 }});
         });
 
-/*
-        apply((CommentAdded event)-> {
-            Comment comment = new Comment(CommentId.of(event.getId()),
-                    new Author(event.getAuthor()),
-                    new Content(event.getContent()));
-            post.comments.add(comment);
-        });
-        */
 
     }
 }

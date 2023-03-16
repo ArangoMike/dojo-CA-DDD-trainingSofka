@@ -64,11 +64,11 @@ public class AgendaRepositoryImpl implements AgendaRepository {
 
     @SneakyThrows
     @Override
-    public Mono<Boolean> assignSchedule(String schedule,String id){
+    public Mono<Void> assignSchedule(String schedule,String id){
 
        LocalDateTime scheduleformat = dateformat(schedule);
 
-        Mono<Boolean> res= dto.findById(id)
+        return dto.findById(id)
                 .flatMap(agendadoc -> {
                     // Buscamos el día con dayName "Monday"
                     Optional<Object> optionalDay = agendadoc.getDays().stream()
@@ -99,9 +99,7 @@ public class AgendaRepositoryImpl implements AgendaRepository {
                     }
                     // Si no se encontró el día o el horario, retornamos la agenda original
                     return Mono.just(false);
-                });
-
-        return res;
+                }).then();
     }
 
     @Override
@@ -110,18 +108,18 @@ public class AgendaRepositoryImpl implements AgendaRepository {
     }
 
     @Override
-    public Mono<CreateAgendaCommand> associatePatientId(String patientId, String id) {
+    public Mono<Void> associatePatientId(String patientId, String id) {
         return dto.findById(id)
                 .flatMap(agenda-> {
                     agenda.getPatients().add(patientId);
                     return dto.save(agenda);
-                });
+                }).then();
     }
 
     @Override
-    public Mono<String> disableScheduleDay(DisableScheduleDayCommand disableScheduleDayCommand) {
+    public Mono<Void> disableScheduleDay(DisableScheduleDayCommand disableScheduleDayCommand) {
 
-       Mono<String> res = dto.findById(disableScheduleDayCommand.getAgendaId())
+     return dto.findById(disableScheduleDayCommand.getAgendaId())
                 .flatMap(agenda -> {
                     Optional<Object> optionalDay = agenda.getDays().stream()
                             .filter(day -> {
@@ -149,8 +147,7 @@ public class AgendaRepositoryImpl implements AgendaRepository {
                         }return Mono.just("No se logró modificar el horario verifique que si este ocupado.");
                     }
                     return Mono.just("No se logró modificar el horario verifique que si este ocupado.");
-    });
-        return res;
+    }).then();
     }
 
 

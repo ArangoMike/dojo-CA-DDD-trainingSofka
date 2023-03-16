@@ -3,18 +3,12 @@ package co.com.sofka.usecase.agenda;
 import co.com.sofka.model.agenda.events.AgendaCreated;
 import co.com.sofka.model.agenda.events.DayAssociated;
 import co.com.sofka.model.agenda.values.Schedule;
-import co.com.sofka.model.events.gateways.EventBus;
 import co.com.sofka.model.generic.DomainEvent;
-import co.com.sofka.model.patient.events.AppointmentAssociated;
-import co.com.sofka.model.patient.events.PatientCreated;
-import co.com.sofka.model.patient.values.Email;
-import co.com.sofka.model.patient.values.FullName;
-import co.com.sofka.model.patient.values.TypeId;
+
 import co.com.sofka.usecase.agenda.commands.AssociateDayCommand;
 import co.com.sofka.usecase.gateways.AgendaRepository;
 import co.com.sofka.usecase.gateways.DomainEventRepository;
-import co.com.sofka.usecase.gateways.PatientRepository;
-import co.com.sofka.usecase.patient.AssociateAppointmentEventUseCase;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -24,10 +18,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
 
