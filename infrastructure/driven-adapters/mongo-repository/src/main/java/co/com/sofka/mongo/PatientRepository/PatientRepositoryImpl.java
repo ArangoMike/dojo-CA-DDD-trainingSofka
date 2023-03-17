@@ -35,7 +35,7 @@ public class PatientRepositoryImpl implements PatientRepository {
        return dto.findById(modifyEnablePatientCommand.getPatientId())
                 .map(createPatientCommand -> {
                     createPatientCommand.setEnable(modifyEnablePatientCommand.getEnable());
-                return dto.save(createPatientCommand);
+                return dto.save(createPatientCommand).subscribe();
                 }).then();
     }
 
@@ -45,7 +45,7 @@ public class PatientRepositoryImpl implements PatientRepository {
                 .map(patientCommand -> {
                     patientCommand.setEmail(modifyEmailPatientCommand.getEmail());
 
-                    return dto.save(patientCommand);
+                    return dto.save(patientCommand).subscribe();
                 }).then();
     }
 
@@ -59,7 +59,7 @@ public class PatientRepositoryImpl implements PatientRepository {
                               associateAppointmentCommand.getAppointmentDate(),"");
 
                     patientCommand.getAppointments().add(appointment);
-                    return dto.save(patientCommand);
+                    return dto.save(patientCommand).subscribe();
                 }).then();
     }
 
@@ -92,7 +92,7 @@ public class PatientRepositoryImpl implements PatientRepository {
                             }
                         }
                     }
-                    return dto.save(patientCommand);
+                    return dto.save(patientCommand).subscribe();
                 }).then();
     }
 

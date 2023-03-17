@@ -40,7 +40,7 @@ public class AgendaRepositoryImpl implements AgendaRepository {
 
         var days = new ArrayList<>();
         var patients = new ArrayList<String>();
-        patients.add(" ");
+        patients.add("");
 
         createAgendaCommand.setDays(days);
         createAgendaCommand.setPatients(patients);
@@ -59,7 +59,7 @@ public class AgendaRepositoryImpl implements AgendaRepository {
 
                     agendaCommand.getDays().add(day);
                     return dto.save(agendaCommand);
-                }).then();
+                }).flatMap(agenda -> { return agenda;}).then();
     }
 
     @SneakyThrows
